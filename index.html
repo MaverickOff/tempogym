@@ -3,58 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; script-src 'self' 'unsafe-inline';">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>Paulbase Cloud</title>
+    <title>TempoGym</title>
 </head>
-<body class="bg-dark text-light"> <nav class="navbar navbar-dark bg-black shadow-sm">
-        <span class="navbar-brand mb-0 h1 mx-auto font-weight-bold text-uppercase" style="letter-spacing: 2px;">Paulbase Cloud</span>
+<body class="bg-dark text-light"> 
+    <nav class="navbar navbar-dark bg-black shadow-sm">
+        <span class="navbar-brand mb-0 h1 mx-auto font-weight-bold text-uppercase" style="letter-spacing: 2px;">TempoGym</span>
     </nav>
 
     <div class="container flex-grow-1 d-flex flex-column justify-content-between p-3" style="min-height: calc(100dvh - 60px);">
         
         <div id="panel-config" class="row no-gutters mt-2">
-            <div class="col-4 p-1">
+            <div class="col-6 p-1">
                 <div class="config-card">
                     <label for="fase_prep">Prep (s)</label>
-                    <input type="number" id="fase_prep" value="5">
-                </div>
-            </div>
-            <div class="col-4 p-1">
-                <div class="config-card">
-                    <label for="fase_bajada">Bajada</label>
-                    <input type="number" id="fase_bajada" value="3">
-                </div>
-            </div>
-            <div class="col-4 p-1">
-                <div class="config-card">
-                    <label for="fase_fondo">Fondo</label>
-                    <input type="number" id="fase_fondo" value="1">
+                    <input type="number" id="fase_prep" value="5" min="0" max="60">
                 </div>
             </div>
             <div class="col-6 p-1">
-                <div class="config-card highlight-card">
-                    <label for="fase_subida">Subida</label>
-                    <input type="number" id="fase_subida" value="2">
-                </div>
-            </div>
-            <div class="col-6 p-1">
-                <div class="config-card highlight-card">
-                    <label for="fase_contraccion">Contraer</label>
-                    <input type="number" id="fase_contraccion" value="1">
-                </div>
-            </div>
-            <div class="col-12 p-1 mt-2">
-                <div class="config-card reps-card border-primary">
+                <div class="config-card reps-card">
                     <label for="reps" class="text-primary font-weight-bold">Repeticiones</label>
-                    <input type="number" id="reps" value="6" class="text-primary">
+                    <input type="number" id="reps" value="6" class="text-primary" min="1" max="100">
+                </div>
+            </div>
+
+            <div class="col-3 p-1">
+                <div class="config-card tempo-card">
+                    <label for="fase_bajada">Baja</label>
+                    <input type="number" id="fase_bajada" value="3" min="0" max="60">
+                </div>
+            </div>
+            <div class="col-3 p-1">
+                <div class="config-card tempo-card">
+                    <label for="fase_fondo">Fondo</label>
+                    <input type="number" id="fase_fondo" value="1" min="0" max="60">
+                </div>
+            </div>
+            <div class="col-3 p-1">
+                <div class="config-card tempo-card">
+                    <label for="fase_subida">Sube</label>
+                    <input type="number" id="fase_subida" value="2" min="0" max="60">
+                </div>
+            </div>
+            <div class="col-3 p-1">
+                <div class="config-card tempo-card">
+                    <label for="fase_contraccion">Contrae</label>
+                    <input type="number" id="fase_contraccion" value="1" min="0" max="60">
                 </div>
             </div>
         </div>
 
         <div class="timer-display flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center my-4">
             <div id="texto">
-                <span class="text-muted" style="font-size: 1.2rem;">Configura tu serie</span>
+                <h5 id="display-reps" class="text-primary mb-2" style="display: none;"></h5>
+                <h3 id="display-fase" style="display: none;"></h3>
+                <h1 id="display-tiempo" style="font-size: 4rem; display: none;"></h1>
+                <span id="display-mensaje" class="text-muted" style="font-size: 1.2rem;">Configura tu serie</span>
             </div>
         </div>
 

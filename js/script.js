@@ -1,15 +1,36 @@
+/**
+ * @fileoverview Lógica central de la aplicación Paulbase Cloud.
+ * Gestiona el temporizador de ejercicios, síntesis de voz, generación
+ * de osciladores de audio y la interacción táctil adaptada a dispositivos móviles.
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
+    // Referencias a botones
     const btnEmpezar = document.getElementById('btnEmpezar');
     const btnPausar = document.getElementById('btnPausar');
-    const textoDisplay = document.getElementById('texto');
     
+    // Referencias a los nodos de visualización (Optimizados para evitar innerHTML)
+    const displayReps = document.getElementById('display-reps');
+    const displayFase = document.getElementById('display-fase');
+    const displayTiempo = document.getElementById('display-tiempo');
+    const displayMensaje = document.getElementById('display-mensaje');
+    const inputsNumericos = document.querySelectorAll('.config-card input[type="number"]');
+    
+    // Estado global de la aplicación
     let estaPausado = false;
     let ejecucionActiva = false;
-    let textoRepeticionActual = ""; // Nueva variable para saber en qué repetición estamos
+    let textoRepeticionActual = ""; 
 
-    // --- SISTEMA DE AUDIO AVANZADO ---
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // Inicialización del contexto de audio web
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const audioCtx = new AudioContext();
     
+    /**
+     * Genera un tono sintetizado utilizando la Web Audio API.
+     * @param {number} frecuencia - Frecuencia del sonido en Hz.
+     * @param {number} duracion - Duración del tono en segundos.
+     * @param {string} tipoOnda - Tipo de onda ('sine', 'square', 'sawtooth', 'triangle').
+     */
     function emitirPitido(frecuencia = 440, duracion = 0.1, tipoOnda = 'sine') {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
@@ -26,83 +47,106 @@ document.addEventListener('DOMContentLoaded', () => {
         osc.stop(audioCtx.currentTime + duracion);
     }
 
+    /**
+     * Emite una secuencia de tonos ascendentes indicando el final de la serie.
+     */
     function emitirSonidoFin() {
         emitirPitido(523.25, 0.3, 'sine');
         setTimeout(() => emitirPitido(659.25, 0.3, 'sine'), 200);
         setTimeout(() => emitirPitido(783.99, 0.6, 'sine'), 400);
     }
 
-    // --- LÓGICA DE CONTROL ---
+    /**
+     * Promesa que resuelve después de 1 segundo. Utilizada para el tick del reloj.
+     * @returns {Promise<void>}
+     */
     const esperarSegundo = () => new Promise(resolve => setTimeout(resolve, 1000));
 
+    /**
+     * Detiene la ejecución asíncrona mediante un bucle while si el estado es 'Pausado'.
+     * @returns {Promise<void>}
+     */
     const checkPausa = async () => {
         while (estaPausado) {
             await new Promise(resolve => setTimeout(resolve, 100));
         }
     };
 
-    // La función ahora muestra la repetición actual junto con el temporizador
+    /**
+     * Muestra u oculta los elementos del DOM dependiendo del estado del cronómetro.
+     * @param {boolean} modoActivo - True si el cronómetro está corriendo.
+     * @param {string} [mensajeFinal] - Texto a mostrar cuando se detiene el cronómetro.
+     */
+    const gestionarVisibilidadDisplay = (modoActivo, mensajeFinal = "") => {
+        if (modoActivo) {
+            displayMensaje.style.display = 'none';
+            displayReps.style.display = 'inline-block';
+            displayFase.style.display = 'block';
+            displayTiempo.style.display = 'block';
+        } else {
+            displayReps.style.display = 'none';
+            displayFase.style.display = 'none';
+            displayTiempo.style.display = 'none';
+            displayMensaje.style.display = 'block';
+            
+            // Usamos className y textContent para evitar inyección XSS
+            displayMensaje.className = mensajeFinal.includes("Error") ? "text-danger font-weight-bold" : "text-success font-weight-bold";
+            displayMensaje.textContent = mensajeFinal || "Configura tu serie";
+            displayMensaje.style.fontSize = "1.5rem";
+        }
+    };
+
+    /**
+     * Ejecuta el conteo regresivo de una fase específica del ejercicio.
+     * @param {string} nombreFase - Nombre de la fase actual (ej. "SUBIENDO").
+     * @param {number} segundos - Duración de la fase.
+     * @param {Object} configAudio - Parámetros de audio {frecuencia, duracion, onda}.
+     */
     const ejecutarFase = async (nombreFase, segundos, configAudio) => {
         if (segundos <= 0) return;
+        
+        displayFase.textContent = nombreFase;
+        displayReps.textContent = textoRepeticionActual;
+
         for (let i = segundos; i > 0; i--) {
             await checkPausa();
-            
             emitirPitido(configAudio.frecuencia, configAudio.duracion, configAudio.onda);
-            
-            // Inyectamos el texto de la repetición arriba del temporizador
-            textoDisplay.innerHTML = `
-                <h5 class="text-primary mb-2">${textoRepeticionActual}</h5>
-                <h3>${nombreFase}</h3>
-                <h1 style="font-size: 4rem;">${i}s</h1>
-            `;
+            displayTiempo.textContent = `${i}s`;
             await esperarSegundo();
         }
     };
 
-    const inputsNumericos = document.querySelectorAll('.config-card input[type="number"]');
-
+    /* --- GESTIÓN DE EVENTOS TÁCTILES PARA INPUTS --- */
     inputsNumericos.forEach(input => {
         let isDragging = false;
         let startY = 0;
         let startValue = 0;
 
-        // Cuando el usuario toca el número
         input.addEventListener('pointerdown', (e) => {
             isDragging = true;
-            startY = e.clientY; // Guardamos en qué píxel de la pantalla tocó
-            startValue = parseInt(input.value) || 0; // Guardamos el valor actual
-            
-            // Forzamos al navegador a seguir el dedo incluso si se sale del número
+            startY = e.clientY;
+            startValue = parseInt(input.value) || 0;
             input.setPointerCapture(e.pointerId); 
-            
-            // Evitamos que se abra el teclado en algunos móviles
             input.blur(); 
             e.preventDefault();
         });
 
-        // Mientras desliza el dedo
         input.addEventListener('pointermove', (e) => {
             if (!isDragging) return;
-
-            const currentY = e.clientY;
-            // Calculamos la distancia: hacia arriba es positivo, hacia abajo negativo
-            const diferencia = startY - currentY; 
-
-            // Sensibilidad: Cuántos píxeles hay que mover el dedo para que el número cambie en 1
-            // 25 píxeles suele ser muy cómodo en móviles
+            const diferencia = startY - e.clientY; 
             const sensibilidad = 25; 
             const cambioAproximado = Math.floor(diferencia / sensibilidad);
 
             let nuevoValor = startValue + cambioAproximado;
-
-            // Evitamos que pongan números negativos
+            
+            // Sanitización de límites min/max durante el arrastre
+            const max = parseInt(input.getAttribute('max')) || 100;
             if (nuevoValor < 0) nuevoValor = 0;
+            if (nuevoValor > max) nuevoValor = max;
 
-            // Actualizamos el valor visualmente
             input.value = nuevoValor;
         });
 
-        // Cuando suelta el dedo
         const stopDrag = (e) => {
             if (isDragging) {
                 isDragging = false;
@@ -114,8 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         input.addEventListener('pointercancel', stopDrag);
     });
 
-
-    // --- EVENTOS DE BOTONES ---
+    /* --- GESTIÓN DE CONTROLES DEL REPRODUCTOR --- */
     btnPausar.addEventListener('click', () => {
         estaPausado = !estaPausado;
         btnPausar.value = estaPausado ? "Reanudar" : "Pausar";
@@ -129,37 +172,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnEmpezar.addEventListener('click', async () => {
         if (ejecucionActiva) return;
-        
         if (audioCtx.state === 'suspended') audioCtx.resume();
 
-        const prep = parseInt(document.getElementById('fase_prep').value) || 0;
-        const bajada = parseInt(document.getElementById('fase_bajada').value) || 0;
-        const fondo = parseInt(document.getElementById('fase_fondo').value) || 0;
-        const subida = parseInt(document.getElementById('fase_subida').value) || 0;
-        const contra = parseInt(document.getElementById('fase_contraccion').value) || 0;
-        const reps = parseInt(document.getElementById('reps').value) || 0;
+        // Extracción y sanitización de datos (Prevención de Denegación de Servicio)
+        const prep = Math.min(parseInt(document.getElementById('fase_prep').value) || 0, 60);
+        const bajada = Math.min(parseInt(document.getElementById('fase_bajada').value) || 0, 60);
+        const fondo = Math.min(parseInt(document.getElementById('fase_fondo').value) || 0, 60);
+        const subida = Math.min(parseInt(document.getElementById('fase_subida').value) || 0, 60);
+        const contra = Math.min(parseInt(document.getElementById('fase_contraccion').value) || 0, 60);
+        const reps = Math.min(parseInt(document.getElementById('reps').value) || 0, 100);
 
         if (reps <= 0) {
-            textoDisplay.innerHTML = '<span class="text-danger">Añade al menos 1 repetición.</span>';
+            gestionarVisibilidadDisplay(false, "Error: Añade al menos 1 repetición.");
             return;
         }
 
+        // Configuración inicial de UI para ejecución
         ejecucionActiva = true;
         btnEmpezar.disabled = true;
         btnPausar.disabled = false;
         btnPausar.value = "Pausar";
-        btnPausar.className = "btn btn-warning";
+        
+        btnPausar.classList.remove('btn-success');
+        btnPausar.classList.add('btn-warning');
+        
+        gestionarVisibilidadDisplay(true);
 
-        // 1. Fase de Preparación
-        textoRepeticionActual = "Preparación"; // Texto durante la preparación
+        // Fase 1: Preparación
+        textoRepeticionActual = "Preparación";
         await ejecutarFase("⏳ Prepárate", prep, { frecuencia: 600, duracion: 0.1, onda: 'sine' });
 
-        // 2. Bucle de la serie (SIN PAUSAS ENTRE REPETICIONES)
+        // Fase 2: Ciclo de Trabajo
         for (let r = 1; r <= reps; r++) {
             await checkPausa();
-            
-            // Actualizamos la variable para que ejecutarFase la pinte automáticamente
             textoRepeticionActual = `Repetición ${r} de ${reps}`;
+
+            // Aviso de síntesis de voz
+            if (r === reps && reps > 1) {
+                const locucion = new SpeechSynthesisUtterance("¡Última!");
+                locucion.lang = "es-ES";
+                locucion.rate = 1.3;
+                locucion.volume = 1;
+                window.speechSynthesis.speak(locucion);
+            }
             
             await ejecutarFase("⬇️ BAJANDO", bajada, { frecuencia: 300, duracion: 0.3, onda: 'triangle' });
             await ejecutarFase("⏸️ FONDO", fondo, { frecuencia: 150, duracion: 0.05, onda: 'square' });
@@ -167,10 +222,11 @@ document.addEventListener('DOMContentLoaded', () => {
             await ejecutarFase("💪 CONTRAE", contra, { frecuencia: 900, duracion: 0.08, onda: 'sine' });
         }
 
-        // 3. Finalización
+        // Fase 3: Finalización
         emitirSonidoFin();
-        textoDisplay.innerHTML = "<h2 class='text-success'>¡Serie completada! 🔥</h2>";
+        gestionarVisibilidadDisplay(false, "¡Serie completada! 🔥");
         
+        // Restauración de UI
         ejecucionActiva = false;
         btnEmpezar.disabled = false;
         btnPausar.disabled = true;
