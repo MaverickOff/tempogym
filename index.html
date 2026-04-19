@@ -1,76 +1,169 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; script-src 'self' 'unsafe-inline';">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; script-src 'self' 'unsafe-inline';"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
     <title>TempoGym</title>
-</head>
-<body class="bg-dark text-light"> 
+  </head>
+  <body class="bg-dark text-light">
     <nav class="navbar navbar-dark bg-black shadow-sm">
-        <span class="navbar-brand mb-0 h1 mx-auto font-weight-bold text-uppercase" style="letter-spacing: 2px;">TempoGym</span>
+      <span
+        class="navbar-brand mb-0 h1 mx-auto font-weight-bold text-uppercase"
+        style="letter-spacing: 2px"
+        >TempoGym</span
+      >
     </nav>
 
-    <div class="container flex-grow-1 d-flex flex-column justify-content-between p-3" style="min-height: calc(100dvh - 60px);">
-        
-        <div id="panel-config" class="row no-gutters mt-2">
-            <div class="col-6 p-1">
-                <div class="config-card">
-                    <label for="fase_prep">Prep (s)</label>
-                    <input type="number" id="fase_prep" value="5" min="0" max="60">
-                </div>
-            </div>
-            <div class="col-6 p-1">
-                <div class="config-card reps-card">
-                    <label for="reps" class="text-primary font-weight-bold">Repeticiones</label>
-                    <input type="number" id="reps" value="6" class="text-primary" min="1" max="100">
-                </div>
-            </div>
+    <div
+      class="container flex-grow-1 d-flex flex-column justify-content-between p-3"
+      style="min-height: calc(100dvh - 60px)"
+    >
+      <div id="panel-config" class="row no-gutters mt-2">
+        <div class="col-12 p-1 mb-2">
+                <select id="preset-selector" class="form-control bg-black text-light border-secondary shadow-sm" style="border-radius: 12px; font-size: 0.9rem;">
+                    <option value="" selected disabled>⚡ Cargar ejercicio de la rutina...</option>
+                    
+                    <optgroup label="1. Upper Body 1 (Pecho, Espalda, Brazos)">
+                        <option value="ub1_db_bench">Dumbbell Bench Press (6 reps | 3-1-X-1)</option>
+                        <option value="ub1_inc_bench">Incline Bench Press (8 reps | 3-1-X-1)</option>
+                        <option value="ub1_pullup">Pull-up (7 reps | 2-1-X-1)</option>
+                        <option value="ub1_row">Straight Back Seated Row (12 reps | 2-0-1-2)</option>
+                        <option value="ub1_curl">Barbell Curl (12 reps | 3-0-1-1)</option>
+                        <option value="ub1_triceps">Triceps Pushdown (12 reps | 3-0-1-1)</option>
+                    </optgroup>
 
-            <div class="col-3 p-1">
-                <div class="config-card tempo-card">
-                    <label for="fase_bajada">Baja</label>
-                    <input type="number" id="fase_bajada" value="3" min="0" max="60">
-                </div>
+                    <optgroup label="2. Lower Body 1 (Pierna)">
+                        <option value="lb1_squat">Full Squat (5 reps | 3-1-X-1)</option>
+                        <option value="lb1_rdl">Romanian Deadlift (6 reps | 4-0-X-1)</option>
+                        <option value="lb1_legpress">Sled 45° Leg Wide Press (10 reps | 3-1-2-1)</option>
+                        <option value="lb1_legext">Lever Leg Extension (12 reps | 2-0-1-2)</option>
+                        <option value="lb1_calf">Lever Standing Calf Raise (12 reps | 2-2-1-1)</option>
+                    </optgroup>
+
+                    <optgroup label="3. Upper Body 2">
+                        <option value="ub2_shoulder">Seated Shoulder Press (8 reps | 3-1-X-1)</option>
+                        <option value="ub2_chinup">Chin-Up (8 reps | 2-1-X-1)</option>
+                        <option value="ub2_row">Straight Back Seated Row (8 reps | 2-0-1-2)</option>
+                        <option value="ub2_curl">Dumbbell Incline Curl (10 reps | 4-0-1-1)</option>
+                        <option value="ub2_lateral">Lateral Raise (12 reps | 2-0-1-2)</option>
+                        <option value="ub2_triceps">Lying Single Extension (12 reps | 3-1-1-0)</option>
+                    </optgroup>
+
+                    <optgroup label="4. Lower Body 2 (Pierna Pesada)">
+                        <option value="lb2_deadlift">Deadlift (6 reps | 2-1-X-1)</option>
+                        <option value="lb2_bulgarian">Bulgarian Split Squat (8 reps | 3-1-1-0)</option>
+                        <option value="lb2_legpress">Sled 45° Leg Wide Press (10 reps | 3-1-2-1)</option>
+                        <option value="lb2_legcurl">Lever Lying Leg Curl (12 reps | 2-0-1-2)</option>
+                        <option value="lb2_calf">Lever Standing Calf Raise (10 reps | 2-2-1-1)</option>
+                    </optgroup>
+                </select>
             </div>
-            <div class="col-3 p-1">
-                <div class="config-card tempo-card">
-                    <label for="fase_fondo">Fondo</label>
-                    <input type="number" id="fase_fondo" value="1" min="0" max="60">
-                </div>
-            </div>
-            <div class="col-3 p-1">
-                <div class="config-card tempo-card">
-                    <label for="fase_subida">Sube</label>
-                    <input type="number" id="fase_subida" value="2" min="0" max="60">
-                </div>
-            </div>
-            <div class="col-3 p-1">
-                <div class="config-card tempo-card">
-                    <label for="fase_contraccion">Contrae</label>
-                    <input type="number" id="fase_contraccion" value="1" min="0" max="60">
-                </div>
-            </div>
+        <div class="col-6 p-1">
+          <div class="config-card">
+            <label for="fase_prep">Prep (s)</label>
+            <input type="number" id="fase_prep" value="5" min="0" max="60" />
+          </div>
+        </div>
+        <div class="col-6 p-1">
+          <div class="config-card reps-card">
+            <label for="reps" class="text-primary font-weight-bold"
+              >Repeticiones</label
+            >
+            <input
+              type="number"
+              id="reps"
+              value="6"
+              class="text-primary"
+              min="1"
+              max="100"
+            />
+          </div>
         </div>
 
-        <div class="timer-display flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center my-4">
-            <div id="texto">
-                <h5 id="display-reps" class="text-primary mb-2" style="display: none;"></h5>
-                <h3 id="display-fase" style="display: none;"></h3>
-                <h1 id="display-tiempo" style="font-size: 4rem; display: none;"></h1>
-                <span id="display-mensaje" class="text-muted" style="font-size: 1.2rem;">Configura tu serie</span>
-            </div>
+        <div class="col-3 p-1">
+          <div class="config-card tempo-card">
+            <label for="fase_bajada">Baja</label>
+            <input type="number" id="fase_bajada" value="3" min="0" max="60" />
+          </div>
         </div>
+        <div class="col-3 p-1">
+          <div class="config-card tempo-card">
+            <label for="fase_fondo">Fondo</label>
+            <input type="number" id="fase_fondo" value="1" min="0" max="60" />
+          </div>
+        </div>
+        <div class="col-3 p-1">
+          <div class="config-card tempo-card">
+            <label for="fase_subida">Sube</label>
+            <input type="number" id="fase_subida" value="2" min="0" max="60" />
+          </div>
+        </div>
+        <div class="col-3 p-1">
+          <div class="config-card tempo-card">
+            <label for="fase_contraccion">Contrae</label>
+            <input
+              type="number"
+              id="fase_contraccion"
+              value="1"
+              min="0"
+              max="60"
+            />
+          </div>
+        </div>
+      </div>
 
-        <div class="action-buttons mb-2">
-            <input type="button" value="Empezar" id="btnEmpezar" class="btn btn-primary btn-lg btn-block py-3 text-uppercase font-weight-bold shadow-lg">
-            <input type="button" value="Pausar" id="btnPausar" class="btn btn-warning btn-lg btn-block py-3 text-uppercase font-weight-bold shadow-lg mt-3" disabled>
+      <div
+        class="timer-display flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center my-4"
+      >
+        <div id="texto">
+          <h5
+            id="display-reps"
+            class="text-primary mb-2"
+            style="display: none"
+          ></h5>
+          <h3 id="display-fase" style="display: none"></h3>
+          <h1 id="display-tiempo" style="font-size: 4rem; display: none"></h1>
+          <span
+            id="display-mensaje"
+            class="text-muted"
+            style="font-size: 1.2rem"
+            >Configura tu serie</span
+          >
         </div>
-        
+      </div>
+
+      <div class="action-buttons mb-2">
+        <input
+          type="button"
+          value="Empezar"
+          id="btnEmpezar"
+          class="btn btn-primary btn-lg btn-block py-3 text-uppercase font-weight-bold shadow-lg"
+        />
+        <input
+          type="button"
+          value="Pausar"
+          id="btnPausar"
+          class="btn btn-warning btn-lg btn-block py-3 text-uppercase font-weight-bold shadow-lg mt-3"
+          disabled
+        />
+      </div>
+      <footer class="text-left pb-2">
+            <small class="version-tag">v1.2.0</small>
+        </footer>
     </div>
 
     <script src="js/script.js"></script>
-</body>
+  </body>
 </html>
