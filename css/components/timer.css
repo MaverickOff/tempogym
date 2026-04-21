@@ -1,0 +1,49 @@
+/* ==========================================================================
+   3. DISPLAY PRINCIPAL DEL CRONÓMETRO
+   ========================================================================== */
+
+/* Etiqueta pequeña superior (ej. "Repetición 1 de 8") */
+#texto h5 {
+    font-size: 1rem;
+    color: #fff !important;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px 20px;
+    border-radius: 30px;
+    display: inline-block;
+    letter-spacing: 1px;
+    font-weight: 500;
+    backdrop-filter: blur(5px); /* Efecto cristal */
+}
+
+/* Texto de la fase actual (ej. "⬇️ BAJANDO") */
+#texto h3 {
+    font-size: 1.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    font-weight: 700;
+}
+
+/* El número gigante del segundero */
+#texto h1 {
+    font-size: 7.5rem !important; 
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--primary-color);
+    text-shadow: 0 0 30px rgba(0, 230, 118, 0.3); /* Resplandor de neón */
+}
+
+/* Etiqueta de versión (v1.1.0) en el footer */
+.version-tag {
+    color: var(--text-muted);
+    font-family: monospace; 
+    background-color: rgba(255, 255, 255, 0.03);
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    border: 1px solid var(--card-border);
+}
