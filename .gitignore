@@ -1,0 +1,31 @@
+# 1. Dependencias (¡CRÍTICO!)
+# Jamás se suben. Cada PC o Robot debe descargarlas por su cuenta.
+node_modules/
+
+# 2. Producción (El código empaquetado)
+# Es el resultado de la "licuadora". Se genera automáticamente, no se sube.
+dist/
+dist-ssr/
+
+# 3. Archivos de Entorno (Secretos)
+# Aquí guardarás contraseñas o claves de API en el futuro. NUNCA se suben.
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 4. Logs de errores
+# Archivos de texto que crea Node cuando algo falla. Solo ensucian.
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 5. Archivos del Sistema Operativo
+# Basura oculta que crean Mac y Windows para sus carpetas.
+.DS_Store
+Thumbs.db
+
+# 6. Configuración personal de tu Editor de Código
+.vscode/
+.idea/
