@@ -1,4 +1,4 @@
-name: Deploy to AWS S3
+name: Deploy to AWS S3 (Vite Build)
 
 on:
   push:
@@ -6,18 +6,33 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Actualizado a v4 para evitar advertencias
+
+      # NUEVO PASO 1: Instalar el motor de JavaScript
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Usamos la versión moderna y estable
+
+      # NUEVO PASO 2: Descargar las dependencias (Vite)
+      - name: Install dependencies
+        run: npm ci
+
+      # NUEVO PASO 3: Encender la licuadora (Crea la carpeta dist/)
+      - name: Build project
+        run: npm run build
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4 # Actualizado a v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1 # Cambia esto a la región de tu bucket
+          aws-region: us-east-1
 
+      # CORRECCIÓN: Sincronizar SOLO la carpeta dist/ (no el punto ".")
       - name: Sync files to S3
-        run: aws s3 sync . s3://paulbase.cloud --delete --exclude ".git/*" --exclude ".github/*"
+        run: aws s3 sync dist/ s3://paulbase.cloud --delete
