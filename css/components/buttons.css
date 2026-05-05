@@ -4,39 +4,96 @@
 
 /* Contenedor con ligero margen lateral para pantallas móviles */
 .action-buttons {
-    padding: 0 10px; 
+  padding: 0 10px;
 }
 
 /* Reseteo general de botones */
 .btn {
-    border-radius: 16px;
-    border: none !important;
-    font-size: 1.2rem;
-    letter-spacing: 1px;
+  border-radius: var(--border-radius-lg);
+  border: none !important;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: var(--spacing-md) var(--spacing-lg);
 }
 
 /* Botón principal (Empezar) */
 .btn-primary {
-    background: var(--primary-gradient) !important;
-    color: #000 !important; /* Texto negro para máximo contraste con el verde */
-    box-shadow: 0 8px 20px rgba(0, 230, 118, 0.25) !important;
+  background: var(--primary-gradient) !important;
+  color: #000 !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 230, 118, 0.35) !important;
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.96);
 }
 
 /* Botón de advertencia (Pausar) */
 .btn-warning {
-    background-color: #ffb300 !important;
-    color: #000 !important;
-    box-shadow: 0 8px 20px rgba(255, 179, 0, 0.15) !important;
+  background-color: var(--warning-color) !important;
+  color: #000 !important;
+  box-shadow: 0 8px 20px rgba(255, 179, 0, 0.15) !important;
+}
+
+.btn-warning:hover {
+  background-color: #ffca28 !important;
+  transform: translateY(-2px);
+}
+
+.btn-warning:active {
+  transform: translateY(0) scale(0.96);
 }
 
 /* Botón de éxito (Reanudar) */
 .btn-success {
-    background-color: #2e7d32 !important;
-    color: #fff !important;
+  background-color: var(--success-color) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3) !important;
+}
+
+.btn-success:hover {
+  background-color: #388e3c !important;
+  transform: translateY(-2px);
+}
+
+.btn-success:active {
+  transform: translateY(0) scale(0.96);
+}
+
+/* Estados de botones */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 /* Animación háptica visual al pulsar cualquier botón */
-.btn:active {
-    transform: scale(0.96); 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+.btn:active:not(:disabled) {
+  transform: scale(0.96);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Estilos específicos para botones grandes */
+.btn-lg {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  font-size: 1.3rem;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+/* Espaciado entre botones */
+.action-buttons .btn + .btn {
+  margin-top: var(--spacing-md);
 }

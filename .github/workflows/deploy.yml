@@ -35,4 +35,5 @@ jobs:
 
       # CORRECCIÓN: Sincronizar SOLO la carpeta dist/ (no el punto ".")
       - name: Sync files to S3
-        run: aws s3 sync dist/ s3://paulbase.cloud --delete
+        run: aws s3 sync dist/ s3://tempogym.paulbase.cloud --delete
+  

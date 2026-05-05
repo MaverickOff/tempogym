@@ -4,72 +4,99 @@
 
 /* Contenedor base de las tarjetas */
 .config-card {
-    background-color: var(--surface-color);
-    border-radius: 16px;
-    padding: 12px 5px;
-    text-align: center;
-    border: 1px solid var(--card-border);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, border-color 0.2s ease;
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md) var(--spacing-xs);
+  text-align: center;
+  border: 1px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), border-color var(--transition-normal);
 }
 
-/* Títulos de las tarjetas (ej. "PREP (S)") */
+/* Títulos de las tarjetas */
 .config-card label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 4px;
-    letter-spacing: 0.5px;
-    font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xs);
+  letter-spacing: 0.5px;
+  font-weight: 600;
 }
 
-/* Ajuste específico para que los textos de las 4 fases no se desborden en móvil */
+/* Ajuste específico para textos de las 4 fases */
 .tempo-card label {
-    font-size: 0.65rem;
-    letter-spacing: 0px;
+  font-size: 0.65rem;
+  letter-spacing: 0;
 }
 
 /* Estilo destacado para la tarjeta de Repeticiones */
 .reps-card {
-    background-color: rgba(0, 230, 118, 0.05);
-    border: 1px solid rgba(0, 230, 118, 0.3);
+  background-color: rgba(0, 230, 118, 0.05);
+  border: 1px solid rgba(0, 230, 118, 0.3);
 }
 
 /* --- ESTILOS DE LOS INPUTS NUMÉRICOS --- */
 .config-card input {
-    background: transparent !important;
-    border: none !important;
-    color: var(--text-main);
-    font-size: 1.8rem;
-    font-weight: 800;
-    text-align: center;
-    padding: 0;
-    width: 100%;
-    outline: none !important;
-    
-    /* Configuración para el control táctil por arrastre */
-    touch-action: none; 
-    user-select: none;
-    cursor: ns-resize; /* Cursor de flecha vertical en PC */
+  background: transparent !important;
+  border: none !important;
+  color: var(--text-main);
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-align: center;
+  padding: 0;
+  width: 100%;
+  outline: none !important;
+
+  /* Configuración para el control táctil por arrastre */
+  touch-action: none;
+  user-select: none;
+  cursor: ns-resize;
 }
 
 .reps-card input {
-    color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
 }
 
 .config-card input:focus {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
-/* Ocultar las flechitas por defecto (spinners) de los inputs de tipo number en navegadores */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+/* Ocultar las flechitas por defecto de los inputs de tipo number */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
+
 input[type=number] {
-  -moz-appearance: textfield; 
+  -moz-appearance: textfield;
+}
+
+/* Selector de presets */
+#preset-selector {
+  background-color: var(--surface-color);
+  color: var(--text-main);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-sm);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color var(--transition-normal);
+}
+
+#preset-selector:focus {
+  border-color: var(--primary-color);
+}
+
+#preset-selector option {
+  background-color: var(--surface-color);
+  color: var(--text-main);
+}
+
+#preset-selector optgroup {
+  font-weight: 600;
+  color: var(--text-muted);
 }

@@ -1,8 +1,8 @@
 {
   "name": "tempogym",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.5.0",
+  "description": "Temporizador de entrenamiento con control de tempo para ejercicios de gimnasio. Aplicación web progresiva con interfaz móvil optimizada.",
+  "main": "js/app.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -13,8 +13,17 @@
     "type": "git",
     "url": "git+https://github.com/MaverickOff/tempogym.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "temporizador",
+    "gimnasio",
+    "fitness",
+    "entrenamiento",
+    "tempo",
+    "workout",
+    "ejercicios",
+    "cronómetro"
+  ],
+  "author": "MaverickOff",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {

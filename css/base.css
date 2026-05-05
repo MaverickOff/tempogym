@@ -3,35 +3,191 @@
    ========================================================================== */
 
 :root {
-    /* Paleta de colores principal */
-    --bg-color: #0d0d12;          /* Fondo base de la App */
-    --surface-color: #1a1a24;     /* Fondo de las tarjetas elevadas */
-    --primary-color: #00e676;     /* Verde neón deportivo */
-    --primary-gradient: linear-gradient(135deg, #00e676 0%, #00c853 100%);
-    
-    /* Tipografía y bordes */
-    --text-main: #ffffff;
-    --text-muted: #8c8c99;
-    --card-border: rgba(255, 255, 255, 0.05);
+  /* Paleta de colores principal */
+  --bg-color: #0d0d12;
+  --surface-color: #1a1a24;
+  --primary-color: #00e676;
+  --primary-gradient: linear-gradient(135deg, #00e676 0%, #00c853 100%);
+
+  /* Colores de estado */
+  --success-color: #2e7d32;
+  --warning-color: #ffb300;
+  --danger-color: #f44336;
+  --info-color: #2196f3;
+
+  /* Tipografía */
+  --text-main: #ffffff;
+  --text-muted: #8c8c99;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: monospace;
+
+  /* Bordes y sombras */
+  --card-border: rgba(255, 255, 255, 0.05);
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 8px 20px rgba(0, 230, 118, 0.25);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.2);
+
+  /* Espaciado */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+
+  /* Bordes */
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 20px;
+
+  /* Transiciones */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.3s ease;
+
+  /* Z-index */
+  --z-base: 1;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal: 1040;
+  --z-popover: 1050;
+  --z-tooltip: 1060;
 }
 
 /* Reseteo y comportamiento del cuerpo de la App */
 body, html {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    min-height: 100dvh; /* dvh se adapta mejor a la barra de navegación en iOS/Android */
-    overflow-x: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--bg-color) !important;
-    color: var(--text-main);
-    
-    /* Hack vital para móviles: Evita el efecto rebote al deslizar hacia arriba/abajo */
-    overscroll-behavior-y: none; 
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  font-family: var(--font-family);
+  background-color: var(--bg-color) !important;
+  color: var(--text-main);
+  overscroll-behavior-y: none;
 }
 
 /* Utilidad global: Barra superior de navegación */
 .bg-black {
-    background-color: #050505 !important;
-    border-bottom: 1px solid var(--card-border);
+  background-color: #050505 !important;
+  border-bottom: 1px solid var(--card-border);
+}
+
+/* Utilidades de texto */
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-success {
+  color: var(--success-color) !important;
+}
+
+.text-danger {
+  color: var(--danger-color) !important;
+}
+
+.font-weight-bold {
+  font-weight: 700 !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
+/* Utilidades de espaciado */
+.mb-2 {
+  margin-bottom: var(--spacing-sm) !important;
+}
+
+.mb-3 {
+  margin-bottom: var(--spacing-md) !important;
+}
+
+.mb-4 {
+  margin-bottom: var(--spacing-lg) !important;
+}
+
+.mt-2 {
+  margin-top: var(--spacing-sm) !important;
+}
+
+.mt-3 {
+  margin-top: var(--spacing-md) !important;
+}
+
+.mt-4 {
+  margin-top: var(--spacing-lg) !important;
+}
+
+.my-4 {
+  margin-top: var(--spacing-lg) !important;
+  margin-bottom: var(--spacing-lg) !important;
+}
+
+.p-1 {
+  padding: var(--spacing-xs) !important;
+}
+
+.p-3 {
+  padding: var(--spacing-md) !important;
+}
+
+.pb-2 {
+  padding-bottom: var(--spacing-sm) !important;
+}
+
+/* Utilidades de flexbox */
+.d-flex {
+  display: flex !important;
+}
+
+.flex-column {
+  flex-direction: column !important;
+}
+
+.flex-grow-1 {
+  flex-grow: 1 !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.justify-content-between {
+  justify-content: space-between !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+/* Utilidades de display */
+.d-block {
+  display: block !important;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+/* Utilidades de posición */
+.shadow-sm {
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-md) !important;
 }

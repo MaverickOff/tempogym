@@ -10,30 +10,50 @@
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; script-src 'self' 'unsafe-inline';"
     />
+    <meta name="description" content="Temporizador de entrenamiento con control de tempo para ejercicios de gimnasio" />
+    <meta name="theme-color" content="#0d0d12" />
+
+    <title>TempoGym - Temporizador de Entrenamiento</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+    <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
     />
+
+    <!-- Estilos personalizados -->
     <link rel="stylesheet" href="css/style.css" />
-    <title>TempoGym</title>
   </head>
   <body class="bg-dark text-light">
-    <nav class="navbar navbar-dark bg-black shadow-sm">
-      <span
-        class="navbar-brand mb-0 h1 mx-auto font-weight-bold text-uppercase"
-        style="letter-spacing: 2px"
-        >TempoGym</span
-      >
-    </nav>
+    <!-- Header / Navegación -->
+    <header>
+      <nav class="navbar navbar-dark bg-black shadow-sm">
+        <span
+          class="navbar-brand mb-0 h1 mx-auto font-weight-bold text-uppercase"
+          style="letter-spacing: 2px"
+          >TempoGym</span
+        >
+      </nav>
+    </header>
 
-    <div
+    <!-- Contenido Principal -->
+    <main
       class="container flex-grow-1 d-flex flex-column justify-content-between p-3"
       style="min-height: calc(100dvh - 60px)"
     >
-      <div id="panel-config" class="row no-gutters mt-2">
+      <!-- Panel de Configuración -->
+      <section id="panel-config" class="row no-gutters mt-2" aria-label="Configuración del ejercicio">
         <div class="col-12 p-1 mb-2">
-                <select id="preset-selector" class="form-control bg-black text-light shadow-sm" style="border: 0px; border-radius: 12px; font-size: 0.9rem;">
-                    <option value="" selected disabled>⚡ Seleccionar ejercicio de la rutina</option>
+          <select
+            id="preset-selector"
+            class="form-control bg-black text-light shadow-sm"
+            style="border: 0px; border-radius: 12px; font-size: 0.9rem;"
+            aria-label="Seleccionar rutina predefinida"
+          >
+            <option value="" selected disabled>⚡ Seleccionar ejercicio de la rutina</option>
                     
                     <optgroup label="1. Upper Body 1 (Pecho, Espalda, Brazos)">
                         <option value="ub1_db_bench">Dumbbell Bench Press (6 reps | 3-1-X-1)</option>
@@ -67,13 +87,22 @@
                         <option value="lb2_legpress">Sled 45° Leg Wide Press (10 reps | 3-1-2-1)</option>
                         <option value="lb2_legcurl">Lever Lying Leg Curl (12 reps | 2-0-1-2)</option>
                         <option value="lb2_calf">Lever Standing Calf Raise (10 reps | 2-2-1-1)</option>
-                    </optgroup>
+                  </optgroup>
                 </select>
-            </div>
+              </div>
+
+        <!-- Inputs de configuración -->
         <div class="col-6 p-1">
           <div class="config-card">
             <label for="fase_prep">Prep (s)</label>
-            <input type="number" id="fase_prep" value="5" min="0" max="60" />
+            <input
+              type="number"
+              id="fase_prep"
+              value="5"
+              min="0"
+              max="60"
+              aria-label="Tiempo de preparación en segundos"
+            />
           </div>
         </div>
         <div class="col-6 p-1">
@@ -88,6 +117,7 @@
               class="text-primary"
               min="1"
               max="100"
+              aria-label="Número de repeticiones"
             />
           </div>
         </div>
@@ -95,19 +125,40 @@
         <div class="col-3 p-1">
           <div class="config-card tempo-card">
             <label for="fase_bajada">Baja</label>
-            <input type="number" id="fase_bajada" value="3" min="0" max="60" />
+            <input
+              type="number"
+              id="fase_bajada"
+              value="3"
+              min="0"
+              max="60"
+              aria-label="Tiempo de fase de bajada"
+            />
           </div>
         </div>
         <div class="col-3 p-1">
           <div class="config-card tempo-card">
             <label for="fase_fondo">Fondo</label>
-            <input type="number" id="fase_fondo" value="1" min="0" max="60" />
+            <input
+              type="number"
+              id="fase_fondo"
+              value="1"
+              min="0"
+              max="60"
+              aria-label="Tiempo de fase en fondo"
+            />
           </div>
         </div>
         <div class="col-3 p-1">
           <div class="config-card tempo-card">
             <label for="fase_subida">Sube</label>
-            <input type="number" id="fase_subida" value="2" min="0" max="60" />
+            <input
+              type="number"
+              id="fase_subida"
+              value="2"
+              min="0"
+              max="60"
+              aria-label="Tiempo de fase de subida"
+            />
           </div>
         </div>
         <div class="col-3 p-1">
@@ -119,22 +170,35 @@
               value="1"
               min="0"
               max="60"
+              aria-label="Tiempo de fase de contracción"
             />
           </div>
         </div>
-      </div>
+      </section>
 
-      <div
+      <!-- Display del Temporizador -->
+      <section
         class="timer-display flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center my-4"
+        aria-live="polite"
+        aria-atomic="true"
       >
         <div id="texto">
           <h5
             id="display-reps"
             class="text-primary mb-2"
             style="display: none"
+            aria-hidden="true"
           ></h5>
-          <h3 id="display-fase" style="display: none"></h3>
-          <h1 id="display-tiempo" style="font-size: 4rem; display: none"></h1>
+          <h3
+            id="display-fase"
+            style="display: none"
+            aria-hidden="true"
+          ></h3>
+          <h1
+            id="display-tiempo"
+            style="font-size: 4rem; display: none"
+            aria-hidden="true"
+          ></h1>
           <span
             id="display-mensaje"
             class="text-muted"
@@ -142,14 +206,16 @@
             >Configura tu serie</span
           >
         </div>
-      </div>
+      </section>
 
-      <div class="action-buttons mb-2">
+      <!-- Botones de Acción -->
+      <section class="action-buttons mb-2" aria-label="Controles del temporizador">
         <input
           type="button"
           value="Empezar"
           id="btnEmpezar"
           class="btn btn-primary btn-lg btn-block py-3 text-uppercase font-weight-bold shadow-lg"
+          aria-label="Comenzar temporizador"
         />
         <input
           type="button"
@@ -157,13 +223,17 @@
           id="btnPausar"
           class="btn btn-warning btn-lg btn-block py-3 text-uppercase font-weight-bold shadow-lg mt-3"
           disabled
+          aria-label="Pausar o reanudar temporizador"
         />
-      </div>
-      <footer class="text-left pb-2">
-            <small class="version-tag">v1.4.1</small>
-        </footer>
-    </div>
+      </section>
+    </main>
 
+    <!-- Footer -->
+    <footer class="text-left pb-2">
+      <small class="version-tag">v1.5.0</small>
+    </footer>
+
+    <!-- Scripts -->
     <script type="module" src="js/app.js"></script>
   </body>
 </html>

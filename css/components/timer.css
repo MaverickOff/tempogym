@@ -4,46 +4,72 @@
 
 /* Etiqueta pequeña superior (ej. "Repetición 1 de 8") */
 #texto h5 {
-    font-size: 1rem;
-    color: #fff !important;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 8px 20px;
-    border-radius: 30px;
-    display: inline-block;
-    letter-spacing: 1px;
-    font-weight: 500;
-    backdrop-filter: blur(5px); /* Efecto cristal */
+  font-size: 1rem;
+  color: var(--text-main) !important;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: 30px;
+  display: inline-block;
+  letter-spacing: 1px;
+  font-weight: 500;
+  backdrop-filter: blur(5px);
 }
 
 /* Texto de la fase actual (ej. "⬇️ BAJANDO") */
 #texto h3 {
-    font-size: 1.8rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-top: 20px;
-    margin-bottom: 0px;
-    font-weight: 700;
+  font-size: 1.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: var(--spacing-lg);
+  margin-bottom: 0;
+  font-weight: 700;
 }
 
 /* El número gigante del segundero */
 #texto h1 {
-    font-size: 7.5rem !important; 
-    font-weight: 900;
-    line-height: 1.1;
-    margin: 0;
-    color: var(--primary-color);
-    text-shadow: 0 0 30px rgba(0, 230, 118, 0.3); /* Resplandor de neón */
+  font-size: 7.5rem !important;
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--primary-color);
+  text-shadow: 0 0 30px rgba(0, 230, 118, 0.3);
 }
 
 /* Etiqueta de versión (v1.1.0) en el footer */
 .version-tag {
-    color: var(--text-muted);
-    font-family: monospace; 
-    background-color: rgba(255, 255, 255, 0.03);
-    padding: 2px 8px;
-    border-radius: 10px;
-    letter-spacing: 1px;
-    opacity: 0.6;
-    border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  background-color: rgba(255, 255, 255, 0.03);
+  padding: 2px var(--spacing-sm);
+  border-radius: 10px;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  border: 1px solid var(--card-border);
+}
+
+/* Contenedor del display */
+.timer-display {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Mensaje de estado */
+#display-mensaje {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  transition: all var(--transition-normal);
+}
+
+#display-mensaje.text-success {
+  color: var(--success-color) !important;
+  font-size: 1.5rem;
+}
+
+#display-mensaje.text-danger {
+  color: var(--danger-color) !important;
+  font-size: 1.5rem;
 }
