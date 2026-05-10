@@ -16,6 +16,8 @@ import {
 import { TimerDisplay } from "./components/TimerDisplay.js";
 import { ConfigPanel } from "./components/ConfigPanel.js";
 import { ActionButtons } from "./components/ActionButtons.js";
+import { VolumeCalculator } from "./components/VolumeCalculator.js";
+import { SPANavigation } from "./modules/SPANavigation.js";
 
 // --- 2. INICIALIZACIÓN ---
 document.addEventListener("DOMContentLoaded", () => {
@@ -43,11 +45,31 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   const actionButtons = new ActionButtons(elementosDOM.botones);
 
-  // --- 5. ESTADO GLOBAL ---
+  // --- 5. NAVEGACIÓN SPA Y CALCULADORA ---
+  const spaNavigation = new SPANavigation({
+    navbar: document.querySelector(".spa-navbar"),
+    btnTemporizador: document.getElementById("nav-temporizador"),
+    btnCalculadora: document.getElementById("nav-calculadora"),
+    vistaTemporizador: document.getElementById("vista-temporizador"),
+    vistaCalculadora: document.getElementById("vista-calculadora")
+  });
+
+  const volumeCalculator = new VolumeCalculator({
+    contenedor: document.getElementById("sets-container"),
+    volumenTotal: document.getElementById("volumen-total"),
+    btnAnadir: document.getElementById("btn-anadir-set"),
+    btnEliminar: document.getElementById("btn-eliminar-set")
+  });
+
+  // Inicializar navegación y calculadora
+  spaNavigation.inicializar();
+  volumeCalculator.inicializar();
+
+  // --- 6. ESTADO GLOBAL ---
   let ejecucionActiva = false;
   let textoRepeticionActual = "";
 
-  // --- 6. CONFIGURACIÓN DE COMPONENTES ---
+  // --- 7. CONFIGURACIÓN DE COMPONENTES ---
   configPanel.configurarCargaPresets(rutinasPresets);
   configPanel.configurarControlTactil(limites.sensibilidadArrastre);
 
@@ -81,17 +103,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     timerDisplay.gestionarVisibilidad(true);
 
-    // --- 7. EJECUCIÓN DEL TEMPORIZADOR ---
+    // --- 8. EJECUCIÓN DEL TEMPORIZADOR ---
     await ejecutarTemporizador(config);
 
-    // --- 8. FINALIZACIÓN ---
+    // --- 9. FINALIZACIÓN ---
     emitirSonidoFin();
     timerDisplay.gestionarVisibilidad(false, textos.serieCompletada);
     actionButtons.restablecer();
     ejecucionActiva = false;
   });
 
-  // --- 9. FUNCIONES AUXILIARES ---
+  // --- 10. FUNCIONES AUXILIARES ---
 
   /**
    * Crea una pausa exacta de 1 segundo.

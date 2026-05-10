@@ -41,11 +41,46 @@
 
     <!-- Contenido Principal -->
     <main
-      class="container flex-grow-1 d-flex flex-column justify-content-between p-3"
-      style="min-height: calc(100dvh - 60px)"
+      class="container d-flex flex-column p-3 flex-grow-1"
+      style="min-height: calc(100dvh - 60px); gap: 0; padding-bottom: 0;"
     >
+      <!-- Navbar SPA -->
+      <nav
+        class="spa-navbar"
+        role="tablist"
+        aria-label="Navegación principal"
+      >
+        <button
+          id="nav-temporizador"
+          class="spa-nav-btn active"
+          role="tab"
+          aria-selected="true"
+          aria-controls="vista-temporizador"
+          tabindex="-1"
+        >
+          ⏱️ Temporizador
+        </button>
+        <button
+          id="nav-calculadora"
+          class="spa-nav-btn"
+          role="tab"
+          aria-selected="false"
+          aria-controls="vista-calculadora"
+          tabindex="0"
+        >
+          📊 Calculadora Volumen
+        </button>
+      </nav>
+
+      <!-- Vista del Temporizador -->
+      <div
+        id="vista-temporizador"
+        class="vista-container"
+        role="tabpanel"
+        aria-labelledby="nav-temporizador"
+      >
       <!-- Panel de Configuración -->
-      <section id="panel-config" class="row no-gutters mt-2" aria-label="Configuración del ejercicio">
+      <section id="panel-config" class="row no-gutters" aria-label="Configuración del ejercicio">
         <div class="col-12 p-1 mb-2">
           <select
             id="preset-selector"
@@ -178,7 +213,7 @@
 
       <!-- Display del Temporizador -->
       <section
-        class="timer-display flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center my-4"
+        class="timer-display d-flex flex-column justify-content-center align-items-center text-center"
         aria-live="polite"
         aria-atomic="true"
       >
@@ -226,11 +261,55 @@
           aria-label="Pausar o reanudar temporizador"
         />
       </section>
+      </div>
+
+      <!-- Vista de la Calculadora de Volumen -->
+      <div
+        id="vista-calculadora"
+        class="vista-container"
+        role="tabpanel"
+        aria-labelledby="nav-calculadora"
+        hidden
+        aria-hidden="true"
+      >
+        <!-- Display del Volumen Total -->
+        <section class="volumen-display" aria-live="polite" aria-atomic="true">
+          <h2>Volumen Total</h2>
+          <div class="volumen-valor" id="volumen-total">0 kg</div>
+        </section>
+
+        <!-- Contenedor de Sets -->
+        <section
+          id="sets-container"
+          class="sets-container"
+          aria-label="Lista de sets"
+          role="list"
+        ></section>
+
+        <!-- Botones de Acción -->
+        <section class="calculator-actions" aria-label="Controles de la calculadora">
+          <button
+            id="btn-anadir-set"
+            class="btn btn-anadir"
+            aria-label="Añadir nuevo set"
+          >
+            ➕ Añadir Set
+          </button>
+          <button
+            id="btn-eliminar-set"
+            class="btn btn-eliminar"
+            aria-label="Eliminar último set"
+            disabled
+          >
+            🗑️ Eliminar Último
+          </button>
+        </section>
+      </div>
     </main>
 
     <!-- Footer -->
-    <footer class="text-left pb-2">
-      <small class="version-tag">v1.5.0</small>
+    <footer class="text-left">
+      <small class="version-tag">v1.6.0</small>
     </footer>
 
     <!-- Scripts -->

@@ -2,6 +2,12 @@
    2. TARJETAS DE CONFIGURACIÓN (Inputs de usuario)
    ========================================================================== */
 
+/* Panel de configuración */
+#panel-config {
+  margin-top: 0 !important;
+  margin-bottom: var(--spacing-sm) !important;
+}
+
 /* Contenedor base de las tarjetas */
 .config-card {
   background-color: var(--surface-color);
@@ -14,6 +20,8 @@
   justify-content: center;
   box-shadow: var(--shadow-sm);
   transition: transform var(--transition-normal), border-color var(--transition-normal);
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* Títulos de las tarjetas */

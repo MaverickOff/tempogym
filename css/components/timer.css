@@ -4,10 +4,10 @@
 
 /* Etiqueta pequeña superior (ej. "Repetición 1 de 8") */
 #texto h5 {
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: var(--text-main) !important;
   background-color: rgba(255, 255, 255, 0.1);
-  padding: var(--spacing-sm) var(--spacing-lg);
+  padding: var(--spacing-xs) var(--spacing-md);
   border-radius: 30px;
   display: inline-block;
   letter-spacing: 1px;
@@ -17,7 +17,7 @@
 
 /* Texto de la fase actual (ej. "⬇️ BAJANDO") */
 #texto h3 {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -28,7 +28,7 @@
 
 /* El número gigante del segundero */
 #texto h1 {
-  font-size: 7.5rem !important;
+  font-size: 1.5rem !important;
   font-weight: 900;
   line-height: 1.1;
   margin: 0;
@@ -48,28 +48,37 @@
   border: 1px solid var(--card-border);
 }
 
+/* Footer */
+footer {
+  margin-top: auto;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-lg) var(--spacing-sm);
+}
+
 /* Contenedor del display */
 .timer-display {
-  min-height: 200px;
+  min-height: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 0 !important;
+  margin-bottom: var(--spacing-sm) !important;
+  flex-grow: 1;
 }
 
 /* Mensaje de estado */
 #display-mensaje {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--text-muted);
   transition: all var(--transition-normal);
 }
 
 #display-mensaje.text-success {
   color: var(--success-color) !important;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 #display-mensaje.text-danger {
   color: var(--danger-color) !important;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }

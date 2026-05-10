@@ -5,6 +5,8 @@
 /* Contenedor con ligero margen lateral para pantallas móviles */
 .action-buttons {
   padding: 0 10px;
+  margin-top: auto;
+  padding-top: var(--spacing-sm);
 }
 
 /* Reseteo general de botones */
@@ -49,22 +51,6 @@
 }
 
 .btn-warning:active {
-  transform: translateY(0) scale(0.96);
-}
-
-/* Botón de éxito (Reanudar) */
-.btn-success {
-  background-color: var(--success-color) !important;
-  color: #fff !important;
-  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3) !important;
-}
-
-.btn-success:hover {
-  background-color: #388e3c !important;
-  transform: translateY(-2px);
-}
-
-.btn-success:active {
   transform: translateY(0) scale(0.96);
 }
 

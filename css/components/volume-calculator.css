@@ -1,0 +1,256 @@
+/**
+ * @fileoverview Estilos para la Calculadora de Volumen.
+ * @module components/volume-calculator
+ */
+
+/* ==========================================================================
+   NAVBAR SPA
+   ========================================================================== */
+
+.spa-navbar {
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm) !important;
+  display: flex;
+  gap: var(--spacing-sm);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.spa-nav-btn {
+  flex: 1;
+  background-color: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  outline: none;
+}
+
+.spa-nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+}
+
+.spa-nav-btn:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.2);
+}
+
+.spa-nav-btn.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #000;
+}
+
+/* ==========================================================================
+   CALCULADORA DE VOLUMEN
+   ========================================================================== */
+
+.volumen-display {
+  background-color: var(--surface-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+  text-align: center;
+  margin-bottom: var(--spacing-sm);
+  margin-top: 0 !important;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.2);
+  flex-shrink: 0;
+}
+
+.volumen-display h2 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-sm);
+}
+
+.volumen-display .volumen-valor {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  line-height: 1;
+}
+
+.sets-container {
+  max-height: none;
+  overflow-y: auto;
+  padding-right: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+  flex-grow: 1;
+}
+
+.sets-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sets-container::-webkit-scrollbar-track {
+  background: var(--surface-color);
+  border-radius: 3px;
+}
+
+.sets-container::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 3px;
+}
+
+.sets-container::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+.set-row {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.set-row .config-card {
+  min-height: 80px;
+}
+
+.set-row .config-card input {
+  font-size: 1.5rem;
+}
+
+.set-row .config-card input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.3;
+}
+
+/* ==========================================================================
+   BOTONES DE ACCIÓN DE LA CALCULADORA
+   ========================================================================== */
+
+.calculator-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: auto;
+  padding-top: var(--spacing-sm);
+}
+
+.calculator-actions .btn {
+  flex: 1;
+  padding: var(--spacing-md);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-normal);
+}
+
+.calculator-actions .btn-anadir {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #000;
+}
+
+.calculator-actions .btn-anadir:hover:not(:disabled) {
+  background-color: #00c853;
+  border-color: #00c853;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 230, 118, 0.4);
+}
+
+.calculator-actions .btn-anadir:focus {
+  box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.3);
+}
+
+.calculator-actions .btn-eliminar {
+  background-color: var(--surface-color);
+  border-color: var(--card-border);
+  color: var(--text-main);
+}
+
+.calculator-actions .btn-eliminar:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--text-muted);
+}
+
+.calculator-actions .btn-eliminar:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.calculator-actions .btn-eliminar:focus:not(:disabled) {
+  border-color: var(--text-muted);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   TRANSICIONES DE VISTAS
+   ========================================================================== */
+
+.vista-container {
+  transition: opacity 0.2s ease-in-out;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex-grow: 1;
+}
+
+#vista-temporizador {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  gap: 0;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#vista-calculadora {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  gap: 0;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.vista-container[hidden] {
+  display: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 576px) {
+  .volumen-display .volumen-valor {
+    font-size: 2rem;
+  }
+
+  .volumen-display {
+    padding: var(--spacing-sm);
+  }
+
+  .spa-nav-btn {
+    font-size: 0.8rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .calculator-actions .btn {
+    font-size: 0.9rem;
+    padding: var(--spacing-sm);
+  }
+}

@@ -66,6 +66,8 @@ body, html {
   background-color: var(--bg-color) !important;
   color: var(--text-main);
   overscroll-behavior-y: none;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Utilidad global: Barra superior de navegación */
@@ -83,14 +85,6 @@ body, html {
   color: var(--text-muted) !important;
 }
 
-.text-success {
-  color: var(--success-color) !important;
-}
-
-.text-danger {
-  color: var(--danger-color) !important;
-}
-
 .font-weight-bold {
   font-weight: 700 !important;
 }
@@ -104,29 +98,8 @@ body, html {
   margin-bottom: var(--spacing-sm) !important;
 }
 
-.mb-3 {
-  margin-bottom: var(--spacing-md) !important;
-}
-
-.mb-4 {
-  margin-bottom: var(--spacing-lg) !important;
-}
-
-.mt-2 {
-  margin-top: var(--spacing-sm) !important;
-}
-
 .mt-3 {
   margin-top: var(--spacing-md) !important;
-}
-
-.mt-4 {
-  margin-top: var(--spacing-lg) !important;
-}
-
-.my-4 {
-  margin-top: var(--spacing-lg) !important;
-  margin-bottom: var(--spacing-lg) !important;
 }
 
 .p-1 {
@@ -135,10 +108,6 @@ body, html {
 
 .p-3 {
   padding: var(--spacing-md) !important;
-}
-
-.pb-2 {
-  padding-bottom: var(--spacing-sm) !important;
 }
 
 /* Utilidades de flexbox */

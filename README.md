@@ -6,6 +6,7 @@ Temporizador de entrenamiento con control de tempo para ejercicios de gimnasio. 
 
 - ⏱️ **Temporizador preciso**: Control de tempo para cada fase del ejercicio (bajada, fondo, subida, contracción)
 - 🎯 **Rutinas predefinidas**: Sistema de presets para entrenamientos Upper Body y Lower Body
+- ⏱️ **Calculadora de volumen de ejercicios**: Mide el volumen de los ejercicios en segundos con resultados en tiempo real
 - 🎵 **Feedback de audio**: Pitidos sintéticos y anuncios de voz para guía durante el ejercicio
 - 📱 **Interfaz móvil optimizada**: Control táctil por arrastre en inputs numéricos
 - 🎨 **Diseño moderno**: Interfaz oscura con acentos en verde neón
@@ -105,7 +106,7 @@ Los inputs numéricos soportan control por arrastre:
 - Pitidos sintéticos para cada segundo
 - Anuncios de voz para la última repetición
 - Melodía de celebración al completar la serie
-
+ 
 ## 🛠️ Tecnologías
 
 - **HTML5**: Estructura semántica
